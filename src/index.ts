@@ -1,9 +1,10 @@
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import { Request, Response } from "express";
-import { AppDataSource } from "./data-source";
-import { Routes } from "./routes";
-import { User } from "./entity/User";
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import { Request, Response } from 'express';
+import { AppDataSource } from './data-source';
+import { Routes } from './routes';
+import { User } from './entity/User';
+const PORT = 3330;
 
 AppDataSource.initialize()
   .then(async () => {
@@ -38,29 +39,41 @@ AppDataSource.initialize()
     // ...
 
     // start express server
-    app.listen(3000, () => {
-      console.log("Server loading at Port : 3000");
+    app.listen(PORT, () => {
+      console.log(
+        `Express server has started on port ${PORT}. Open http://localhost:${PORT}/users to see results`
+      );
     });
 
-    // insert new users for test
-    await AppDataSource.manager.save(
-      AppDataSource.manager.create(User, {
-        firstName: "Timber",
-        lastName: "Saw",
-        age: 27,
-      })
-    );
+    // // insert new users for test
+    // await AppDataSource.manager.save(
+    //   AppDataSource.manager.create(User, {
+    //     firstName: "Timber",
+    //     lastName: "Saw",
+    //     age: 27,
+    //   })
+    // );
 
-    await AppDataSource.manager.save(
-      AppDataSource.manager.create(User, {
-        firstName: "Phantom",
-        lastName: "Assassin",
-        age: 24,
-      })
-    );
+    const userRepository = AppDataSource.getRepository(User);
 
-    console.log(
-      "Express server has started on port 3000. Open http://localhost:3000/users to see results"
-    );
+    // const user1 = new User();
+    // user1.firstName = 'youngbin';
+    // user1.lastName = 'kim';
+    // user1.age = 33;
+    // await userRepository.save(user1);
+
+    const allUsers = await userRepository.find();
+    console.log('🚀 ~ file: index.ts:72 ~ .then ~ allUsers:', allUsers);
+
+    const firstUser = await userRepository.findOneBy({
+      id: 1,
+    });
+    console.log('🚀 ~ file: index.ts:77 ~ .then ~ firstUser:', firstUser);
+
+    const timber = await userRepository.findOneBy({
+      firstName: 'Timber',
+      lastName: 'Saw',
+    });
+    console.log('🚀 ~ file: index.ts:83 ~ .then ~ timber:', timber);
   })
   .catch((error) => console.log(error));
