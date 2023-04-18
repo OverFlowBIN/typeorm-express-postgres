@@ -3,7 +3,7 @@ import * as bodyParser from 'body-parser';
 import { Request, Response } from 'express';
 import { AppDataSource } from './data-source';
 import { Routes } from './routes';
-import { User } from './entity/User';
+import User from './entities/user';
 const PORT = 3330;
 
 AppDataSource.initialize()
@@ -54,7 +54,7 @@ AppDataSource.initialize()
     //   })
     // );
 
-    const userRepository = AppDataSource.getRepository(User);
+    // const userRepository = AppDataSource.getRepository(User);
 
     // const user1 = new User();
     // user1.firstName = 'youngbin';
@@ -62,18 +62,18 @@ AppDataSource.initialize()
     // user1.age = 33;
     // await userRepository.save(user1);
 
-    const allUsers = await userRepository.find();
-    console.log('🚀 ~ file: index.ts:72 ~ .then ~ allUsers:', allUsers);
+    // const allUsers = await userRepository.find();
+    // console.log('🚀 ~ file: index.ts:72 ~ .then ~ allUsers:', allUsers);
 
-    const firstUser = await userRepository.findOneBy({
-      id: 1,
-    });
-    console.log('🚀 ~ file: index.ts:77 ~ .then ~ firstUser:', firstUser);
+    // const firstUser = await userRepository.findOneBy({
+    //   id: 1,
+    // });
+    // console.log('🚀 ~ file: index.ts:77 ~ .then ~ firstUser:', firstUser);
 
-    const timber = await userRepository.findOneBy({
-      firstName: 'Timber',
-      lastName: 'Saw',
-    });
-    console.log('🚀 ~ file: index.ts:83 ~ .then ~ timber:', timber);
+    // const timber = await userRepository.findOneBy({
+    //   firstName: 'Timber',
+    //   lastName: 'Saw',
+    // });
+    // console.log('🚀 ~ file: index.ts:83 ~ .then ~ timber:', timber);
   })
   .catch((error) => console.log(error));
