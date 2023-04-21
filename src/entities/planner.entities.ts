@@ -7,8 +7,8 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import PlannerLoginHistory from './plannerLoginHistory';
-import PlannerReferralHistory from './plannerReferralHistory';
+import PlannerLoginHistory from './plannerLoginHistory.entities';
+import PlannerReferralHistory from './plannerReferralHistory.entities';
 import { Company } from '../interfaces/enums';
 import { Request } from '.';
 

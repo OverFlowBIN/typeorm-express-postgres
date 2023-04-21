@@ -1,0 +1,11 @@
+export { default as AuthRouter } from './auth.route';
+export { default as ClaimRouter } from './claim.route';
+export { default as UserRouter } from './user.route';
+export { default as CommonRouter } from './common.route';
+export { default as RequestRouter } from './request.route';
+export { default as RequestHistoryRouter } from './requestHistory.route';
+export { default as CustomerRouter } from './customer.route';
+export { default as ContractRouter } from './contract.route';
+export { default as PlannerRouter } from './planner.route';
+export { default as PlannerLoginHistoryRouter } from './plannerLoginHistory.route';
+export { default as PlannerReferralHistoryRouter } from './plannerReferralHistory.route';

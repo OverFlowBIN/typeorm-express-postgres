@@ -8,7 +8,7 @@ import {
   PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import Request from './request';
+import Request from './request.entities';
 import { RequestStatus } from '../interfaces/enums';
 
 @Entity()

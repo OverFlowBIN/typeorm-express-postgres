@@ -9,7 +9,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Customer, Request } from '.';
 import { Provider, UserRole } from '../interfaces/enums';
 
 @Entity()

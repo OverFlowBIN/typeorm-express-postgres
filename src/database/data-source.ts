@@ -10,7 +10,7 @@ import {
   PlannerReferralHistory,
   Request,
   RequestHistory,
-} from './entities';
+} from '../entities';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -20,7 +20,7 @@ export const AppDataSource = new DataSource({
   password: 'dudqls12',
   database: 'postgres',
   schema: 'AplusAsset', // schema 설정은 안해주면 public으로 자동 설정 된다.
-  synchronize: true, // TODO: DB 생성때는 true 확정후에는 false로 바꾸기
+  synchronize: false, // TODO: DB 생성때는 true 확정후에는 false로 바꾸기
   logging: false,
   entities: [
     User,
