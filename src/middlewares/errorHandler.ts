@@ -9,7 +9,7 @@ function errorCaseScreener(err: Error) {
   let errorCode: number | null = null;
   const success: boolean = false;
 
-  console.log('================ err ==============', err);
+  console.log('================ Error in Error Handler ==============', err);
   if (!err.message) {
     /* Validation Error */
     errorMessage = Object.values(err[0].constraints)[0] as string;
@@ -35,23 +35,33 @@ function errorCaseScreener(err: Error) {
         errorMessage = 'You are not a registered member at Bople';
         errorCode = 10104;
         break;
+
       case 'NONE_TOKEN_ERROR':
         errorMessage = 'Access denied! You have to send access token';
         errorCode = 10105;
         break;
-      case 'ACCESS_DENIED_ERROR':
-        errorMessage =
-          "Access denied! You don't have permission for this action!";
+      case 'INVALID_OR_EXPIRED_REFRESH_TOKEN':
+        errorMessage = 'Invalid or expired refresh token';
         errorCode = 10106;
         break;
       case 'INVALID_APP_TOKEN_ERROR':
         errorMessage = 'Invalid App Token';
         errorCode = 10107;
         break;
-      case 'CANT_FIND_PLANNER_LOGIN_HISTORY':
-        errorMessage = "can't find planner login history";
-        errorCode = 10108;
+
+      case 'ACCESS_DENIED_ERROR':
+        errorMessage =
+          "Access denied! You don't have permission for this action!";
+        errorCode = 10110;
         break;
+      case 'CANT_FIND_PLANNER_LOGIN_HISTORY':
+        errorMessage = "Can't find planner login history";
+        errorCode = 10120;
+        break;
+      // case 'UNABLE_TO_SAVE_USER_DATA_OR_LOGIN_HISTORY':
+      //   errorMessage = "Can't save user data or login history";
+      //   errorCode = 10121;
+      //   break;
 
       /* ================ 5. PLANNER ERROR ================= */
 
