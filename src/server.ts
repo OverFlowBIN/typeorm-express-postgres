@@ -1,7 +1,10 @@
-import * as express from 'express';
+import express from 'express';
+import { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
-import * as cors from 'cors';
-import { AppDataSource } from './database/data-source';
+import cors from 'cors';
+import { AppDataSource } from './database/bople';
+import { initPoolOracle } from './database/aplusAsset';
+import { clientErrorHandler, errorHandler } from './middlewares/errorHandler';
 
 /* import routes */
 import {
@@ -18,9 +21,13 @@ import {
   PlannerReferralHistoryRouter,
 } from './routes';
 
+/* start bople DB & server */
 AppDataSource.initialize()
   .then(async () => {
     const PORT = process.env.PORT || 3000;
+
+    /* CUSTOMER(ApluseAsset) DB INIT */
+    await initPoolOracle();
 
     // TODO: 나중에 추가
     // const corsOptions = {
@@ -33,9 +40,9 @@ AppDataSource.initialize()
 
     /* setup express app */
     app.use(cors({ origin: true }));
-    // app.use(express.json());
-    // app.use(express.urlencoded({ extended: true }));
-    //app.use(bodyParser.json()); => bodyparser 왜 사용 안하나?
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    // app.use(bodyParser.json()); => bodyparser 왜 사용 안하나?
 
     // TODO: 나중에 추가
     // app.all("/*", function (req, res, next) {
@@ -44,6 +51,7 @@ AppDataSource.initialize()
     //   next();
     // });
 
+    // TODO: 전체 middleware 추가
     app.use('/api/v2/auth', AuthRouter);
     app.use('/api/v2/customer', CustomerRouter);
     app.use('/api/v2/claim', ClaimRouter);
@@ -57,6 +65,33 @@ AppDataSource.initialize()
     // RequestHistoryRouter;
     // PlannerLoginHistoryRouter;
     // PlannerReferralHistoryRouter;
+
+    /* Error Handdler */
+    app.use(clientErrorHandler);
+    app.use(errorHandler);
+
+    // // register express routes from defined application routes
+    // Routes.forEach((route) => {
+    //   (app as any)[route.method](
+    //     route.route,
+    //     (req: Request, res: Response, next: Function) => {
+    //       const result = new (route.controller as any)()[route.action](
+    //         req,
+    //         res,
+    //         next
+    //       );
+    //       if (result instanceof Promise) {
+    //         result.then((result) =>
+    //           result !== null && result !== undefined
+    //             ? res.send(result)
+    //             : undefined
+    //         );
+    //       } else if (result !== null && result !== undefined) {
+    //         res.json(result);
+    //       }
+    //     }
+    //   );
+    // });
 
     /* start express server */
     app.listen(PORT, () => {
