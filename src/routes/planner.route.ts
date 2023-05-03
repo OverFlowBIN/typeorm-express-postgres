@@ -21,8 +21,10 @@ import validateBody from '../middlewares/validation';
 /* import type */
 import { CreatePlannerReferralHistoryInput } from '../api/planner/planner.types';
 
-// TODO: router.use을 사용하여 공통적인 middleware 추가 가능
+// ========================= ROUTE MIDDLEWARE =========================
 router.use(AppAuthChecker);
+
+// =============================== ROUTE ==============================
 router.get('/', plannerOwn);
 router.get('/id/:plannerId', AuthorizedOwnPlanner, plannerById);
 router.get('/name/:name', plannersByName);
