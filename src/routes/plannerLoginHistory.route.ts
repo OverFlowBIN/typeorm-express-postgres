@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 // import { singInByPortOne, signInByAplus, sendAuthCode } from '../controllers/auth.controller';
 
 const router = express.Router();
